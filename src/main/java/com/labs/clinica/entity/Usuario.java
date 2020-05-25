@@ -33,8 +33,8 @@ public class Usuario {
 	private String numero;
 	private String email;
 	private Boolean isManterContato;
-//	private String email;
 
+	
 	public Usuario() {
 
 	}

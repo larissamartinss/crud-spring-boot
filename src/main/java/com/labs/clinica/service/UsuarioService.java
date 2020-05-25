@@ -16,7 +16,7 @@ import com.labs.clinica.repository.UsuarioRepository;
 public class UsuarioService {
 
 	@Autowired
-	private UsuarioRepository repository;
+	private static UsuarioRepository repository;
 
 	public Iterable<Usuario> obterTodos() {
 
@@ -25,24 +25,41 @@ public class UsuarioService {
 
 	}
 
-	public void salvar(Usuario Usuario) {
-		repository.save(Usuario);
+	public static Usuario salvar(Usuario usuario) {
+		return repository.save(usuario);
 	}
+//	public void salvarAlterações(Usuario usuario) {
+//		UsuarioService.salvar(usuario);
+//	}
 
-	public void enviarEmail(Usuario usuario) {
+	public void enviarEmail(Usuario usuario, Boolean reenvairEmail) {
 		AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(
 				ClinicaApplication.class.getPackage().getName());
+		
+		String destinatario;
+		String assunto;
+		String corpo;	
+		
+		if(reenvairEmail) {
+			destinatario = String.format("%s <%s>", usuario.getNome(), usuario.getEmail());
+			assunto = "Clinica online informa - cadastro editado";
+			corpo = String.format("Olá %s! \n\n O seu cadastro foi editado, em nossa base, vamos continuar mantendo o contato!",
+					usuario.getNome());
+		}else {
+			destinatario = String.format("%s <%s>", usuario.getNome(), usuario.getEmail());
+			assunto = "Clinica online informa - O cadastro foi realizado em nossa base";
+			corpo = String.format("Olá %s! \n\n O seu cadastro foi realizado, em nossa base, vamos manter contato!",
+					usuario.getNome());
+		}
 
-		String destinatario = String.format("teste <%s>", usuario.getEmail());
-		String assunto = "Clinica online inforrma - O cadastro foi realizado em nossa base";
-		String corpo = String.format("Olá %s! \n\n O seu cadastro foi realizado, em nossa base, vamos manter contato!",
-				usuario.getNome());
 
 		Mailer mailer = applicationContext.getBean(Mailer.class);
 		mailer.enviar(new Mensagem("Clinica Online <contato.teste2000@gmail.com>", Arrays.asList(destinatario), assunto,
 				corpo));
+		
+
 
 		applicationContext.close();
-	}
 
+	}
 }

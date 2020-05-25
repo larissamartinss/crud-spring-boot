@@ -69,9 +69,9 @@ public class UsuarioController {
 
 			Usuario usuarioSalvo = UsuarioRepository.save(usuario);
 			if (usuario.getIsManterContato()) {
-				UsuarioService.enviarEmail(usuario);
-
+				UsuarioService.enviarEmail(usuario,false);
 			}
+
 			return usuarioSalvo;
 		}
 	}
@@ -84,7 +84,6 @@ public class UsuarioController {
 
 		usuario.setId(usuarioDetails.getId());
 		usuario.setNome(usuarioDetails.getNome());
-		// usuario.setCpf(usuarioDetails.getCpf());
 		usuario.setResidencial(usuarioDetails.getResidencial());
 		usuario.setWhatsApp(usuarioDetails.getWhatsApp());
 		usuario.setComercial(usuarioDetails.getComercial());
@@ -108,8 +107,14 @@ public class UsuarioController {
 				throw new ResourceNotFoundException("CPF já existente na base");
 			}
 		}
-		final Usuario updatedUsuario = UsuarioRepository.save(usuario);
-		return ResponseEntity.ok(updatedUsuario);
+//		final Usuario updatedUsuario = UsuarioRepository.save(usuario);
+		
+		Usuario usuarioSalvo = UsuarioRepository.save(usuario);
+		if(usuario.getIsManterContato()) {
+			UsuarioService.enviarEmail(usuario, true);
+			
+		}
+		return ResponseEntity.ok(usuarioSalvo);
 
 	}
 
