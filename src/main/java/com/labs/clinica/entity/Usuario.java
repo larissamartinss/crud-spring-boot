@@ -23,6 +23,7 @@ public class Usuario {
 	private String celular2;
 	private String celular3;
 	private String celular4;
+	private String celular5;
 	private Date data;
 	private String cep;
 	private String logradouro;
@@ -41,7 +42,7 @@ public class Usuario {
 
 	public Usuario(String nome, String cpf, String residencial, String whatsapp,
 			String comercial, String celular1, String celular2, String celular3,
-			String celular4, Date data, String cep, String logradouro,
+			String celular4,String celular5, Date data, String cep, String logradouro,
 			String complemento, String bairro, String localidade, String uf,
 			String numero, String email, Boolean isManterContato) {
 		this.nome = nome;
@@ -53,6 +54,7 @@ public class Usuario {
 		this.celular2 = celular2;
 		this.celular3 = celular3;
 		this.celular4 = celular4;
+		this.celular5 = celular5;
 		this.data = data;
 		this.cep = cep;
 		this.logradouro = logradouro;
@@ -245,6 +247,15 @@ public class Usuario {
 		this.isManterContato = isManterContato;
 	}
 
+
+	@Column(name = "CELULAR_5", nullable = true, length = 80)
+	public String getCelular5() {
+		return celular5;
+	}
+
+	public void setCelular5(String celular5) {
+		this.celular5 = celular5;
+	}
 
 	@Override
 	public String toString() {

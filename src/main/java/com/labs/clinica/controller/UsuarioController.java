@@ -91,6 +91,7 @@ public class UsuarioController {
 		usuario.setCelular2(usuarioDetails.getCelular2());
 		usuario.setCelular3(usuarioDetails.getCelular3());
 		usuario.setCelular4(usuarioDetails.getCelular4());
+		usuario.setCelular5(usuarioDetails.getCelular5());
 		usuario.setBairro(usuarioDetails.getBairro());
 		usuario.setCep(usuarioDetails.getCep());
 		usuario.setLocalidade(usuarioDetails.getLocalidade());
